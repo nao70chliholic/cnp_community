@@ -159,16 +159,13 @@
         }
         @media (min-width: 768px) {
             .hero {
-                padding-top: 100px;
-                padding-bottom: 100px;
-                flex-direction: row-reverse; /* PC表示：画像右、テキスト左 */
-                justify-content: center;
-                gap: 48px;
-                text-align: left;
-                max-width: 960px;
-                margin: 0 auto;
-                padding-left: 24px;
-                padding-right: 24px;
+                display: block; /* Flexを解除して絶対配置の基準（親）にする */
+                padding: 0;
+                max-width: 1080px; /* 画像が広がりすぎないように制限 */
+                margin: 40px auto 100px auto;
+                border-radius: 32px; /* 全体を角丸にして一枚のパネルのように魅せる */
+                overflow: hidden;
+                box-shadow: 0 16px 48px rgba(0, 0, 0, 0.05); /* うっすらとした影で浮き立たせる */
             }
         }
 
@@ -182,8 +179,14 @@
         }
         @media (min-width: 768px) {
             .hero-img {
-                width: 50%;
-                max-width: 500px;
+                width: 100%;
+                max-width: none;
+                max-height: 720px; /* 高くなりすぎないよう制限 */
+                object-fit: cover;
+                object-position: right center; /* 右側のキャラクターが必ず見えるように配置 */
+                border-radius: 0;
+                box-shadow: none;
+                display: block;
             }
         }
         
@@ -196,8 +199,21 @@
         }
         @media (min-width: 768px) {
             .hero-content {
-                width: 50%;
+                position: absolute;
+                top: 50%;
+                left: 6%; /* 左側の余白部分に配置 */
+                transform: translateY(-50%);
+                width: 45%;
+                max-width: 460px;
                 margin: 0;
+                /* イラストが透ける、上品な半透明・すりガラス（グラスモーフィズム）のオーバーレイ */
+                background: rgba(253, 250, 247, 0.65);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 56px 40px;
+                border-radius: 24px;
+                border: 1px solid rgba(255, 255, 255, 0.4); /* うっすら光る境界線 */
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
             }
         }
 
