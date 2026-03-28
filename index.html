@@ -225,6 +225,16 @@
         }
 
         /* --- CNPでやっていること --- */
+        .activities {
+            /* 前のセクションからの余白を取り、独立したメッセージとして認識しやすくする */
+            padding-top: 120px;
+        }
+        @media (min-width: 768px) {
+            .activities {
+                padding-top: 160px;
+            }
+        }
+        
         .activities .grid {
             display: flex;
             flex-direction: column;
@@ -255,11 +265,13 @@
 
         /* --- CNPで感じている価値 --- */
         .values {
-            /* 次のセクション（なおなおにとってのCNP）への視線の流れを自然にするため、下部の余白を通常よりも広く取る */
+            /* 前後のセクションとの間合いを広く取り、それぞれの情報をより際立たせる */
+            padding-top: 120px;
             padding-bottom: 120px;
         }
         @media (min-width: 768px) {
             .values {
+                padding-top: 160px;
                 padding-bottom: 160px;
             }
         }
