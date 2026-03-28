@@ -18,7 +18,7 @@
         :root {
             --color-bg: #fdfaf7;           /* 背景色（ごく薄いアイボリー） */
             --color-text-main: #333333;    /* 文字メイン */
-            --color-text-sub: #666666;     /* 文字サブ */
+            --color-text-sub: #333333;     /* 文字サブ全体も#333に統一しコントラスト確保 */
             --color-accent-bg: #f5ecea;    /* アクセント背景（やわらかいピンクベージュ） */
             --color-accent-text: #c2877a;  /* アクセント文字（淡いコーラル系） */
             --color-card-bg: #ffffff;      /* カード背景（白） */
@@ -89,9 +89,14 @@
         }
 
         p {
-            margin: 0 0 32px 0; /* テキストブロックを詰めすぎず余裕を持たせる */
-            color: var(--color-text-sub);
-            line-height: 2.0; /* 行間を広げて視線の流れを自然に */
+            font-size: 15px; /* 本文サイズ 14〜16px */
+            margin: 0 auto 24px auto; /* 段落ごとに十分な余白、中央寄せ */
+            color: var(--color-text-main); /* #333へ統一 */
+            line-height: 2.0; /* 行間1.8〜2.0 */
+            max-width: 95%; /* 1行の文字数を制限 */
+        }
+        @media (min-width: 768px) {
+            p { max-width: 100%; }
         }
         p:last-of-type {
             margin-bottom: 0;
@@ -106,23 +111,26 @@
 
         /* CTAボタンの共通スタイル */
         .btn {
-            display: inline-block;
-            background-color: var(--color-card-bg);
-            color: var(--color-text-main);
-            padding: 16px 48px;
-            border-radius: 40px; /* やわらかい印象を与える丸み */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%; 
+            max-width: 320px; /* 横幅80〜90%指定 */
+            min-height: 48px; /* 高さ48px以上確保 */
+            margin: 0 auto;
+            background-color: #ffffff; /* 背景：#fff */
+            color: #333333; /* 文字：#333 */
+            padding: 16px 24px;
+            border-radius: 24px; /* 丸み 24px前後 */
             font-size: 15px;
             font-weight: 500;
-            /* 枠線の色を少し濃くして「押せる要素」としての視認性を向上 */
-            border: 1px solid rgba(194, 135, 122, 0.35);
+            border: 1px solid #e0cfc3; /* 枠線：#e0cfc3 */
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
         }
         .btn:hover {
-            /* hover時にほんのり色味と枠線の主張を強め、自然に浮き上がる */
-            background-color: #f2e5e2; /* アクセントより少しだけ濃い上品な色 */
-            border-color: rgba(194, 135, 122, 0.5);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            background-color: #fdfaf7; /* 背景色がほんのり変化 */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* 影を強化 */
             transform: translateY(-2px);
         }
 
@@ -141,45 +149,55 @@
         /* --- ヒーローセクション --- */
         .hero {
             position: relative;
-            padding-top: 140px;
-            padding-bottom: 120px;
+            padding-top: 40px; /* 余白：上下40px確保 */
+            padding-bottom: 40px;
             text-align: center;
-            background-image: url('./images/hero_bg.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            /* 下部の境界を背景色と滑らかに馴染ませる */
-            box-shadow: inset 0 -80px 80px -20px var(--color-bg);
-            /* 上部が窮屈にならないように */
-            margin-top: -20px;
+            display: flex; /* スマホは縦並び */
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
         }
-        
-        /* ヒーロー内の文字を読みやすくするための柔らかな白背景（グラスモーフィズム） */
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            display: inline-block;
-            /* 背景との一体感を出すため、白ではなくわずかにベージュ寄りで透明度を少し下げる */
-            background: rgba(251, 246, 240, 0.65);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 56px 40px;
-            border-radius: 24px;
-            /* コントラストを弱め柔らかく馴染むようにボーダーの透明度を少し下げる */
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            /* スマホで横幅いっぱいに広がらないよう制御 */
-            max-width: 90%;
-            margin: 0 auto;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.015);
-        }
-
-        @media (max-width: 767px) {
+        @media (min-width: 768px) {
             .hero {
                 padding-top: 100px;
-                padding-bottom: 80px;
+                padding-bottom: 100px;
+                flex-direction: row-reverse; /* PC表示：画像右、テキスト左 */
+                justify-content: center;
+                gap: 48px;
+                text-align: left;
+                max-width: 960px;
+                margin: 0 auto;
+                padding-left: 24px;
+                padding-right: 24px;
             }
+        }
+
+        /* ① イラストを一枚絵として配置 */
+        .hero-img {
+            width: 90%; /* スマホ横幅90%未満 */
+            max-width: 480px; 
+            border-radius: 24px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06); 
+            object-fit: cover;
+        }
+        @media (min-width: 768px) {
+            .hero-img {
+                width: 50%;
+                max-width: 500px;
+            }
+        }
+        
+        /* ②〜④ テキスト・ボタンのブロック */
+        .hero-content {
+            position: relative;
+            width: 90%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
             .hero-content {
-                padding: 40px 24px;
+                width: 50%;
+                margin: 0;
             }
         }
 
@@ -195,27 +213,32 @@
             letter-spacing: 0.1em;
         }
         .hero h1 {
-            font-size: 30px;
-            line-height: 1.5;
-            /* タイトル下の余白を増やし、余裕のある印象に (40px -> 52px) */
-            margin-bottom: 52px;
+            font-size: 28px; /* スマホ：28〜32px */
+            line-height: 1.4; /* 見出し行間1.4 */
+            font-weight: 600; /* Semibold */
+            margin-bottom: 32px;
         }
         @media (min-width: 768px) {
             .hero h1 {
-                font-size: 40px;
+                font-size: 32px;
+                margin-bottom: 40px;
             }
         }
         .hero .lead {
-            /* 窮屈さをなくすため説明文下の余白も少し追加 (48px -> 56px) */
-            margin-bottom: 56px;
+            margin-bottom: 40px;
+        }
+        @media (min-width: 768px) {
+            .hero .lead {
+                margin-bottom: 48px;
+            }
         }
 
         /* --- なぜ関わっているのか --- */
         .reason .box {
-            background-color: var(--color-card-bg);
-            padding: 56px 32px;
+            background-color: #f9f7f5; /* 背景：#f9f7f5 */
+            padding: 48px 24px; /* スマホでより見やすい余白 */
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02); /* 主張しすぎない極薄い影 */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* 薄く影をつける */
             text-align: center;
         }
         @media (min-width: 768px) {
@@ -246,12 +269,12 @@
             }
         }
         .activity-card {
-            background-color: var(--color-card-bg);
+            background-color: #f9f7f5; /* 背景：#f9f7f5 */
             padding: 40px 24px;
             border-radius: 12px;
             text-align: center;
             flex: 1; /* 横並び時に均等幅にする */
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.015);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); /* 薄い影 */
         }
         .activity-card h3 {
             font-size: 18px;
@@ -285,9 +308,9 @@
         .values-list li {
             position: relative;
             padding-left: 40px;
-            margin-bottom: 32px; /* 箇条書きも詰めすぎず、ゆとりを */
+            margin-bottom: 24px; /* 行間と行間の余白を確保 */
             font-size: 16px;
-            line-height: 1.9;
+            line-height: 1.8; /* 行間：1.8 */
             color: var(--color-text-sub);
         }
         .values-list li:last-child {
@@ -327,11 +350,16 @@
 
     <!-- 1. ヒーローセクション -->
     <section class="hero">
+        <!-- ① イラスト -->
+        <img src="./images/hero_bg.png" alt="CNPコミュニティの森" class="hero-img">
+        
+        <!-- ②〜④ キャッチコピー・説明文・ボタン -->
         <div class="hero-content">
             <span class="label">新しい挑戦のかたち</span>
             <h1>挑戦と応援が<br class="br-sp">生まれる場所</h1>
             <div class="lead">
-                <p>私は今、CNPというコミュニティで<br class="br-sp">活動しています。<br class="br-pc">ここは、ただのNFTプロジェクトではなく、<br>挑戦する人と、それを応援する人が<br class="br-sp">つながる場所です。</p>
+                <p>私は今、CNPというコミュニティで<br class="br-sp">活動しています。</p>
+                <p>ここはただのNFTプロジェクトではなく、<br>挑戦する人と、それを応援する人が<br class="br-sp">自然につながる場所です。</p>
             </div>
             <a href="https://www.cryptoninja-partners.xyz/" class="btn" target="_blank" rel="noopener noreferrer">CNP公式サイトを見る</a>
         </div>
