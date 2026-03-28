@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>挑戦と応援が生まれる場所 - なおなお × CNP</title>
+    <meta name="description" content="なおなおがCNPで何をしているのか、なぜ関わっているのかを紹介するページです。">
+    
+    <!-- Google Fontsの読み込み（Noto Sans JPに統一） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. 基本設定（変数・リセット）
+           ========================================= */
+        :root {
+            --color-bg: #fdfaf7;           /* 背景色（ごく薄いアイボリー） */
+            --color-text-main: #333333;    /* 文字メイン */
+            --color-text-sub: #666666;     /* 文字サブ */
+            --color-accent-bg: #f5ecea;    /* アクセント背景（やわらかいピンクベージュ） */
+            --color-accent-text: #c2877a;  /* アクセント文字（淡いコーラル系） */
+            --color-card-bg: #ffffff;      /* カード背景（白） */
+            
+            --font-heading: 'Noto Sans JP', sans-serif;
+            --font-body: 'Noto Sans JP', sans-serif;
+            
+            --width-container: 720px;      /* 最大幅を制限して読みやすく */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.85;
+            letter-spacing: 0.04em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* リンクのリセット */
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================================
+           2. 共通レイアウト・コンポーネント
+           ========================================= */
+        /* コンテンツ幅を制御するラッパー */
+        .container {
+            max-width: var(--width-container);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 各セクションの余白設定（スマホ優先、PCで少し広く） */
+        section {
+            padding: 80px 0;
+        }
+        @media (min-width: 768px) {
+            section {
+                padding: 100px 0;
+            }
+        }
+
+        /* 見出しのスタイル */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 600; /* Noto Sans JP Semibold */
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 48px;
+            letter-spacing: 0.06em;
+            color: var(--color-text-main);
+        }
+        @media (min-width: 768px) {
+            h2 {
+                font-size: 28px;
+                margin-bottom: 56px;
+            }
+        }
+
+        p {
+            margin: 0 0 32px 0; /* テキストブロックを詰めすぎず余裕を持たせる */
+            color: var(--color-text-sub);
+            line-height: 2.0; /* 行間を広げて視線の流れを自然に */
+        }
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        /* 強調メッセージのスタイル（洗練さを保つため、控えめなマーカー装飾） */
+        strong {
+            color: var(--color-text-main);
+            font-weight: 600;
+            background: linear-gradient(transparent 70%, rgba(194, 135, 122, 0.15) 75%);
+        }
+
+        /* CTAボタンの共通スタイル */
+        .btn {
+            display: inline-block;
+            background-color: var(--color-card-bg);
+            color: var(--color-text-main);
+            padding: 16px 48px;
+            border-radius: 40px; /* やわらかい印象を与える丸み */
+            font-size: 15px;
+            font-weight: 500;
+            /* 枠線の色を少し濃くして「押せる要素」としての視認性を向上 */
+            border: 1px solid rgba(194, 135, 122, 0.35);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            /* hover時にほんのり色味と枠線の主張を強め、自然に浮き上がる */
+            background-color: #f2e5e2; /* アクセントより少しだけ濃い上品な色 */
+            border-color: rgba(194, 135, 122, 0.5);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* スマホ・PCでの改行制御クラス */
+        .br-sp { display: block; }
+        .br-pc { display: none; }
+        @media (min-width: 768px) {
+            .br-sp { display: none; }
+            .br-pc { display: inline; }
+        }
+
+        /* =========================================
+           3. セクション別スタイル
+           ========================================= */
+
+        /* --- ヒーローセクション --- */
+        .hero {
+            position: relative;
+            padding-top: 140px;
+            padding-bottom: 120px;
+            text-align: center;
+            background-image: url('./images/hero_bg.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            /* 下部の境界を背景色と滑らかに馴染ませる */
+            box-shadow: inset 0 -80px 80px -20px var(--color-bg);
+            /* 上部が窮屈にならないように */
+            margin-top: -20px;
+        }
+        
+        /* ヒーロー内の文字を読みやすくするための柔らかな白背景（グラスモーフィズム） */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            /* 背景との一体感を出すため、白ではなくわずかにベージュ寄りで透明度を少し下げる */
+            background: rgba(251, 246, 240, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 56px 40px;
+            border-radius: 24px;
+            /* コントラストを弱め柔らかく馴染むようにボーダーの透明度を少し下げる */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* スマホで横幅いっぱいに広がらないよう制御 */
+            max-width: 90%;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.015);
+        }
+
+        @media (max-width: 767px) {
+            .hero {
+                padding-top: 100px;
+                padding-bottom: 80px;
+            }
+            .hero-content {
+                padding: 40px 24px;
+            }
+        }
+
+        .hero .label {
+            display: inline-block;
+            background-color: var(--color-accent-bg);
+            color: var(--color-accent-text);
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            font-family: var(--font-heading);
+            letter-spacing: 0.1em;
+        }
+        .hero h1 {
+            font-size: 30px;
+            line-height: 1.5;
+            /* タイトル下の余白を増やし、余裕のある印象に (40px -> 52px) */
+            margin-bottom: 52px;
+        }
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+        }
+        .hero .lead {
+            /* 窮屈さをなくすため説明文下の余白も少し追加 (48px -> 56px) */
+            margin-bottom: 56px;
+        }
+
+        /* --- なぜ関わっているのか --- */
+        .reason .box {
+            background-color: var(--color-card-bg);
+            padding: 56px 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02); /* 主張しすぎない極薄い影 */
+            text-align: center;
+        }
+        @media (min-width: 768px) {
+            .reason .box {
+                padding: 64px 80px;
+            }
+        }
+
+        /* --- CNPでやっていること --- */
+        .activities .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .activities .grid {
+                flex-direction: row; /* PCでは横並び */
+            }
+        }
+        .activity-card {
+            background-color: var(--color-card-bg);
+            padding: 40px 24px;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1; /* 横並び時に均等幅にする */
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.015);
+        }
+        .activity-card h3 {
+            font-size: 18px;
+            color: var(--color-accent-text);
+            margin-bottom: 16px;
+        }
+        .activity-card p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* --- CNPで感じている価値 --- */
+        .values {
+            /* 次のセクション（なおなおにとってのCNP）への視線の流れを自然にするため、下部の余白を通常よりも広く取る */
+            padding-bottom: 120px;
+        }
+        @media (min-width: 768px) {
+            .values {
+                padding-bottom: 160px;
+            }
+        }
+
+        .values-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 380px;
+        }
+        .values-list li {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 32px; /* 箇条書きも詰めすぎず、ゆとりを */
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--color-text-sub);
+        }
+        .values-list li:last-child {
+            margin-bottom: 0;
+        }
+        /* リストの先頭につける装飾 */
+        .values-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-accent-text);
+            opacity: 0.6;
+        }
+
+        /* --- なおなおにとってのCNP --- */
+        .for-me {
+            text-align: center;
+            padding-bottom: 40px; /* クロージングへのつながりを意識して下余白少なめ */
+        }
+
+        /* --- クロージングCTA --- */
+        .closing {
+            text-align: center;
+            padding-top: 80px;
+            padding-bottom: 120px;
+        }
+        .closing p {
+            margin-bottom: 48px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="label">新しい挑戦のかたち</span>
+            <h1>挑戦と応援が<br class="br-sp">生まれる場所</h1>
+            <div class="lead">
+                <p>私は今、CNPというコミュニティで<br class="br-sp">活動しています。<br class="br-pc">ここは、ただのNFTプロジェクトではなく、<br>挑戦する人と、それを応援する人が<br class="br-sp">つながる場所です。</p>
+            </div>
+            <a href="https://www.cryptoninja-partners.xyz/" class="btn" target="_blank" rel="noopener noreferrer">CNP公式サイトを見る</a>
+        </div>
+    </section>
+
+    <!-- 2. なぜ関わっているのか -->
+    <section class="reason container">
+        <div class="box">
+            <h2>なぜ、CNPに関わっているのか</h2>
+            <p>会社員として商品開発をしてきた私にとって、<br><strong>“誰かの挑戦を応援する”という体験</strong>は、<br>これまでとは少し違う価値を持っていました。</p>
+            <p>自分が前に出るだけではなく、<br><strong>誰かの一歩を支えることにも意味がある。</strong></p>
+            <p>そんな感覚を、CNPの活動の中で<br class="br-sp">強く実感しています。</p>
+        </div>
+    </section>
+
+    <!-- 3. CNPでやっていること -->
+    <section class="activities container">
+        <h2>CNPでやっていること</h2>
+        <div class="grid">
+            <div class="activity-card">
+                <h3>コミュニティ運営</h3>
+                <p>人が安心して関われる場づくりや、<br>流れを整える役割を担っています。</p>
+            </div>
+            <div class="activity-card">
+                <h3>企画づくり</h3>
+                <p>楽しいだけで終わらない、<br>関わる人の熱量が動く企画を考えています。</p>
+            </div>
+            <div class="activity-card">
+                <h3>応援の仕組みづくり</h3>
+                <p>挑戦する人と、応援する人のつながりが<br>自然に生まれる導線を意識しています。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CNPで感じている価値 -->
+    <section class="values container">
+        <h2>CNPで感じている価値</h2>
+        <ul class="values-list">
+            <li><strong>挑戦する人</strong> に出会える</li>
+            <li><strong>応援される体験</strong> ができる</li>
+            <li><strong>新しいつながり</strong> が生まれる</li>
+            <li><strong>「役割」</strong> を自分でつくっていける</li>
+        </ul>
+    </section>
+
+    <!-- 5. なおなおにとってのCNP -->
+    <section class="for-me container">
+        <h2>なおなおにとってのCNP</h2>
+        <p>CNPは、ただ情報を受け取る場所ではなく、<br>自分で機会をつくり、役割を持ち、<br class="br-sp">仲間と一緒に動いていける場所です。</p>
+        <p>私にとっては、<br><strong>“挑戦すること”と“応援すること”の両方が自然に重なった、</strong><br>とても大切なコミュニティです。</p>
+    </section>
+
+    <!-- 6. クロージングCTA -->
+    <section class="closing container">
+        <h2>まずは、雰囲気をのぞいてみてください</h2>
+        <p>もし少しでも気になったら、<br class="br-sp">CNP公式サイトを見てみてください。<br>そこから、なおなおの活動や世界観にも<br class="br-sp">つながっていけたら嬉しいです。</p>
+        <a href="https://www.cryptoninja-partners.xyz/" class="btn" target="_blank" rel="noopener noreferrer">CNP公式サイトへ</a>
+    </section>
+
+</body>
+</html>
